@@ -1,6 +1,17 @@
 # 一：简述
 
 推送系统包含系统推送和用户推送两种，由底层socket框架区分，类型又包括数据推送和指令推送，目前暂合并制作，即做用户推送，既包含数据类也推送指令，指令推送多用于PC端，执行远程代码控制等操作，使用内存动态加载指令技术。
+
+
+技术交流 QQ:1264957104
+
+![image](https://github.com/hnsugar/Push_Android_SDK/blob/master/111.png)
+![image](https://github.com/hnsugar/Push_Android_SDK/blob/master/222.png)
+![image](https://github.com/hnsugar/Push_Android_SDK/blob/master/1111.gif)
+![image](https://github.com/hnsugar/Push_Android_SDK/blob/master/222.gif)
+
+
+
 # 二:Json格式定义
   
   
