@@ -2,6 +2,7 @@
 
 推送系统包含系统推送和用户推送两种，由底层socket框架区分，类型又包括数据推送和指令推送，目前暂合并制作，即做用户推送，既包含数据类也推送指令，指令推送多用于PC端，执行远程代码控制等操作，使用内存动态加载指令技术。
 
+突然发现服务器记录了好多不同的IP地址，却没有操作记录，才发现我忘了把使用方法和Windows测试软件传上来了。
 
 技术交流 QQ:1264957104
 
@@ -152,3 +153,73 @@ Intent携带boolean数据
 
 #### 1.如果点击通知信息，执行回调，由开发人员决定何去何从
 
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    private TextView textView;
+    private EditText name, pwd;
+    private Button login, reg;
+    private onLoginRegListener mOnLoginRegListener;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+
+        textView = (TextView) findViewById(R.id.textView);
+        name = (EditText) findViewById(R.id.name);
+        pwd = (EditText) findViewById(R.id.pwd);
+        login = (Button) findViewById(R.id.login);
+        reg = (Button) findViewById(R.id.reg);
+
+        mOnLoginRegListener = new onLoginRegListener() {
+            @Override
+            public void onSuccess(final String UserID, final String Flag) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        textView.append(UserID + "\r\n" + Flag + "\r\n");
+                    }
+                });
+
+            }
+
+            @Override
+            public void onError(final String Errormsg) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        textView.append(Errormsg + "\r\n");
+                    }
+                });
+            }
+
+            @Override
+            public void onLoginForcedOut(final String mS) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        textView.append(mS + "\r\n");
+                        new AlertDialog.Builder(MainActivity.this).setMessage(mS).setPositiveButton("确定", null).show();
+                    }
+                });
+            }
+        };
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.reg:
+                ClientManager.ClientRegister(name.getText().toString(), pwd.getText().toString(), mOnLoginRegListener);
+                break;
+            case R.id.login:
+                ClientManager.ClientLogin(name.getText().toString(), pwd.getText().toString(), mOnLoginRegListener);
+                break;
+            case R.id.test:
+
+
+                break;
+        }
+    }
+}

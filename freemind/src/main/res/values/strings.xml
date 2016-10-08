@@ -1,0 +1,9 @@
+<!--
+  ~ Copyright (c) 2016. Lu Jianchao
+  -->
+
+<resources>
+    <string name="app_name">Freemind</string>
+    <string name="denglu">登陆</string>
+    <string name="zhuce">注册</string>
+</resources>
